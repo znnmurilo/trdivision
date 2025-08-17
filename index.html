@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detroit Police Department - Training Recruit Division</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>T.R.D - Recrutamento & Instrução</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">Sobre Nós</a>
+                <a href="#programs" class="nav-link">Programas</a>
+                <a href="#edital-instrutores" class="nav-link">Edital Instrutores</a>
+            </div>
+            <button class="enroll-btn" id="enrollBtn">
+                <i class="fas fa-user-plus"></i>
+                INSCREVER-SE
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="animated-bg"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-line">T.R.D</span>
+                    <span class="title-line">TRAINING RECRUIT</span>
+                    <span class="title-line">DIVISION</span>
+                </h1>
+                <p class="hero-subtitle">A Espinha Dorsal da Nossa Corporação</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Oficiais Treinados</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Taxa de Sucesso</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">1+</span>
+                        <span class="stat-label">Ano de Experiência</span>
+                    </div>
+                </div>
+                <button class="cta-button" id="ctaBtn">
+                    <span>INICIE SUA JORNADA</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Sobre Nossa Divisão</h2>
+                <p class="section-subtitle">Guardiões da Doutrina - Formando a Próxima Geração</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="about-card">
+                        <div class="card-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Treinamento Completo</h3>
+                        <p>Somos responsáveis por formar a próxima geração de oficiais, garantindo que o padrão de excelência do DPD seja mantido em todos os níveis através de programas rigorosos e completos.</p>
+                    </div>
+                    
+                    <div class="about-card">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Instrutores Especialistas</h3>
+                        <p>Nossa equipe é composta por profissionais experientes, guardiões da doutrina policial, dedicados ao recrutamento e instrução de novos talentos para a corporação.</p>
+                    </div>
+                    
+                    <div class="about-card">
+                        <div class="card-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <h3>Excelência Profissional</h3>
+                        <p>A T.R.D é a espinha dorsal da nossa corporação. Moldamos líderes e mantemos os mais altos padrões de qualidade e excelência no treinamento policial.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Carousel Section -->
+    <section class="carousel-section">
+        <div class="container">
+            <h2 class="section-title">Training in Action</h2>
+            <div class="carousel-container">
+                <div class="carousel-wrapper">
+                    <div class="carousel-slide active">
+                        <img src="" alt="Police Training">
+                        <div class="slide-overlay">
+                            <h3>Physical Training</h3>
+                            <p>Building strength, endurance, and tactical readiness</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="" alt="Classroom Training">
+                        <div class="slide-overlay">
+                            <h3>Academic Excellence</h3>
+                            <p>Comprehensive legal and procedural education</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="" alt="Tactical Training">
+                        <div class="slide-overlay">
+                            <h3>Tactical Operations</h3>
+                            <p>Advanced scenario-based training exercises</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="" alt="Community Policing">
+                        <div class="slide-overlay">
+                            <h3>Community Engagement</h3>
+                            <p>Building bridges with the community we serve</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="carousel-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="carousel-indicators">
+                    <span class="indicator active"></span>
+                    <span class="indicator"></span>
+                    <span class="indicator"></span>
+                    <span class="indicator"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <!-- Edital Instrutores Section -->
+    <section id="edital-instrutores" class="edital-instrutores-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Edital para Novos Instrutores</h2>
+                <p class="section-subtitle">Requisitos para Integrar a Equipe de Instrução da T.R.D</p>
+            </div>
+            
+            <div class="edital-content">
+                <div class="instructor-intro">
+                    <div class="intro-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>Torne-se um Instrutor T.R.D</h3>
+                    <p>A T.R.D busca oficiais experientes e dedicados para integrar nossa equipe de instrução. Como guardião da doutrina, você será responsável por formar a próxima geração de policiais do DPD, mantendo os mais altos padrões de excelência.</p>
+                </div>
+                
+                <div class="instructor-requirements-grid">
+                    <div class="instructor-requirement-card">
+                        <div class="req-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Patente Mínima</h4>
+                        <p>Possuir a patente mínima de <strong>Officer I</strong></p>
+                        <div class="requirement-status">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Obrigatório</span>
+                        </div>
+                    </div>
+                    
+                    <div class="instructor-requirement-card">
+                        <div class="req-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h4>Tempo de Serviço</h4>
+                        <p>Ter, no mínimo, <strong>15 dias</strong> de serviço ativo no DPD</p>
+                        <div class="requirement-status">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Obrigatório</span>
+                        </div>
+                    </div>
+                    
+                    <div class="instructor-requirement-card">
+                        <div class="req-icon">
+                            <i class="fas fa-shield-check"></i>
+                        </div>
+                        <h4>Histórico Exemplar</h4>
+                        <p>Possuir um <strong>histórico exemplar</strong>, sem punições graves recentes</p>
+                        <div class="requirement-status">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Obrigatório</span>
+                        </div>
+                    </div>
+                    
+                    <div class="instructor-requirement-card">
+                        <div class="req-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h4>Conhecimento Técnico</h4>
+                        <p>Demonstrar <strong>conhecimento</strong> dos manuais, códigos e procedimentos do DPD</p>
+                        <div class="requirement-status">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Obrigatório</span>
+                        </div>
+                    </div>
+                    
+                    <div class="instructor-requirement-card">
+                        <div class="req-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h4>Habilidades Interpessoais</h4>
+                        <p>Ter uma <strong>postura profissional</strong>, boa comunicação e paciência</p>
+                        <div class="requirement-status">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Obrigatório</span>
+                        </div>
+                    </div>
+                    
+                    <div class="instructor-requirement-card special-card">
+                        <div class="req-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h4>Compromisso com a Excelência</h4>
+                        <p>Dedicação para <strong>formar</strong> os futuros guardiões da doutrina DPD</p>
+                        <div class="requirement-status special">
+                            <i class="fas fa-heart"></i>
+                            <span>Essencial</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="instructor-benefits">
+                    <h3><i class="fas fa-trophy"></i> Benefícios de ser Instrutor T.R.D</h3>
+                    <div class="benefits-grid">
+                        <div class="benefit-item">
+                            <i class="fas fa-medal"></i>
+                            <span>Reconhecimento como Guardião da Doutrina</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-users"></i>
+                            <span>Oportunidade de Moldar Futuros Oficiais</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Desenvolvimento Profissional Contínuo</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-handshake"></i>
+                            <span>Trabalho em Equipe de Elite</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="instructor-cta">
+                    <h3>Pronto para se Tornar um Instrutor?</h3>
+                    <p>Se você atende a todos os requisitos e tem paixão pelo ensino, candidate-se para integrar nossa equipe de elite.</p>
+                    <button class="instructor-apply-btn" id="instructorApplyBtn">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        Candidatar-se a Instrutor
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="programs-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Training Programs</h2>
+                <p class="section-subtitle">Comprehensive curriculum designed for success</p>
+            </div>
+            
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h3>Physical Fitness</h3>
+                    <ul>
+                        <li>Cardiovascular endurance</li>
+                        <li>Strength training</li>
+                        <li>Tactical movement</li>
+                        <li>Self-defense techniques</li>
+                    </ul>
+                </div>
+                
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Legal Studies</h3>
+                    <ul>
+                        <li>Constitutional law</li>
+                        <li>Criminal procedures</li>
+                        <li>Evidence handling</li>
+                        <li>Court testimony</li>
+                    </ul>
+                </div>
+                
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-crosshairs"></i>
+                    </div>
+                    <h3>Firearms Training</h3>
+                    <ul>
+                        <li>Marksmanship skills</li>
+                        <li>Weapon maintenance</li>
+                        <li>Safety protocols</li>
+                        <li>Tactical shooting</li>
+                    </ul>
+                </div>
+                
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Communication</h3>
+                    <ul>
+                        <li>De-escalation techniques</li>
+                        <li>Community relations</li>
+                        <li>Report writing</li>
+                        <li>Crisis negotiation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>T.R.D - Training Recruit Division</h3>
+                    <p>Espinha Dorsal da Corporação</p>
+                    <p>Formando os guardiões do amanhã</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Nossa Missão</h3>
+                    <p><i class="fas fa-shield-alt"></i> Guardiões da doutrina policial</p>
+                    <p><i class="fas fa-graduation-cap"></i> Formação de excelência</p>
+                    <p><i class="fas fa-users"></i> Recrutamento especializado</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Excelência</h3>
+                    <p><i class="fas fa-star"></i> Padrão DPD de qualidade</p>
+                    <p><i class="fas fa-trophy"></i> Liderança em treinamento</p>
+                    <p><i class="fas fa-medal"></i> Formação de líderes</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Detroit Police Department. All rights reserved.</p>
+                <p>&copy; Desenvolvido por (LABUBU) All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="applicationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-clipboard-check"></i> Formulário de Recrutamento T.R.D</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form class="application-form" id="applicationForm">
+                <div class="form-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <span class="progress-text">0% Completo</span>
+                </div>
+
+                <div class="form-section active" data-section="1">
+                    <h3>Informações Pessoais</h3>
+                    <div class="form-group">
+                        <label for="qra">Qual o seu QRA? *</label>
+                        <input type="text" id="qra" name="qra" placeholder="ex: Cleber Labubu" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="availability">Qual a sua disponibilidade de horário? *</label>
+                        <input type="text" id="availability" name="availability" placeholder="ex: À tarde e à noite" required>
+                    </div>
+                </div>
+
+                <div class="form-section" data-section="2">
+                    <h3>Comunicação por Rádio</h3>
+                    <div class="form-group">
+                        <label for="radio_priority">Durante uma modulação no rádio, se outro oficial comunicar "Prioridade" ou "QRX", qual deve ser a sua ação imediata? *</label>
+                        <textarea id="radio_priority" name="radio_priority" placeholder="ex: Ficar em X na rádio, e aguardar o informe!" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section" data-section="3">
+                    <h3>Procedimentos de Abordagem Veicular</h3>
+                    <div class="form-group">
+                        <label for="p2_function">Na abordagem veicular padrão (Código 1), qual é a principal função do policial na posição P2? *</label>
+                        <textarea id="p2_function" name="p2_function" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section" data-section="4">
+                    <h3>Procedimentos de Prisão</h3>
+                    <div class="form-group">
+                        <label for="photo_items">Ao tirar a foto de um indivíduo para o registro da prisão, quais itens devem ser obrigatoriamente retirados? *</label>
+                        <textarea id="photo_items" name="photo_items" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="max_sentence">Qual é a pena máxima de prisão (em meses) que um oficial pode aplicar sem a necessidade de uma permissão superior? *</label>
+                        <input type="number" id="max_sentence" name="max_sentence" required>
+                    </div>
+                </div>
+
+                <div class="form-section" data-section="5">
+                    <h3>Procedimentos e Protocolos</h3>
+                    <div class="form-group">
+                        <label for="qru_procedure">De acordo com o manual, após a finalização de qualquer QRU, qual é o procedimento obrigatório em relação ao veículo do cidadão envolvido? *</label>
+                        <textarea id="qru_procedure" name="qru_procedure" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="positive_test">Como você agiria caso um conscrito teste positivo no detector de pólvora e entorpecentes? *</label>
+                        <textarea id="positive_test" name="positive_test" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section" data-section="6">
+                    <h3>Protocolos de Comunicação</h3>
+                    <div class="form-group">
+                        <label for="cp_usage">O Chat Policial (/cp) deve ser utilizado para qual tipo de comunicação? *</label>
+                        <textarea id="cp_usage" name="cp_usage" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="qtx_format">Qual é o formato correto para anunciar no /cp que você está saindo para uma pausa rápida (breve QTX)? *</label>
+                        <input type="text" id="qtx_format" name="qtx_format" required>
+                    </div>
+                </div>
+
+                <div class="form-section" data-section="7">
+                    <h3>Procedimentos Legais</h3>
+                    <div class="form-group">
+                        <label for="routine_search">Em uma abordagem de trânsito de rotina (Código 1), sem que haja fundada suspeita ou flagrante, o policial tem legalidade para realizar uma revista veicular? *</label>
+                        <textarea id="routine_search" name="routine_search" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="no_passport">Qual o procedimento correto ao encontrar um indivíduo em Detroit sem passaporte ou com o documento vencido? *</label>
+                        <textarea id="no_passport" name="no_passport" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section" data-section="8">
+                    <h3>Sugestões de Melhoria</h3>
+                    <div class="form-group">
+                        <label for="change_recruitment">Atualmente o que você mudaria no processo de recrutamento? *</label>
+                        <textarea id="change_recruitment" name="change_recruitment" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="improve_courses">Na sua opinião como os cursos básicos atuais poderiam ser mais aproveitados, para que sejam mais assertivos para os recrutas? *</label>
+                        <textarea id="improve_courses" name="improve_courses" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="perfect_recruitment">Na sua opinião como seria o processo de um recrutamento perfeito? *</label>
+                        <textarea id="perfect_recruitment" name="perfect_recruitment" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-navigation">
+                    <button type="button" class="btn-secondary" id="prevBtn" style="display: none;">Anterior</button>
+                    <button type="button" class="btn-primary" id="nextBtn">Próximo</button>
+                    <button type="submit" class="btn-primary" id="submitBtn" style="display: none;">Enviar Formulário</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
