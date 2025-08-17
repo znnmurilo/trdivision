@@ -25,6 +25,13 @@ const totalSections = 8;
 let currentSlide = 0;
 const totalSlides = carouselSlides.length;
 
+// Anti-cheat system
+let pasteAttempts = 0;
+let copyAttempts = 0;
+let suspiciousActivity = [];
+let fullscreenLockActive = false;
+let testInProgress = false;
+
 // Initialize the website
 document.addEventListener('DOMContentLoaded', function() {
     initializeAnimations();
@@ -33,7 +40,257 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeForm();
     initializeNavigation();
     initializeScrollEffects();
+    initializeAntiCheat();
+    initializeFullscreenLock();
 });
+
+// Fullscreen lock system
+function initializeFullscreenLock() {
+    // Detect beforeunload (user trying to leave page)
+    window.addEventListener('beforeunload', function(e) {
+        if (testInProgress) {
+            logSuspiciousActivity('Tentativa de sair da página', 'page_exit');
+            const message = 'ATENÇÃO: Você está no meio de um teste! Sair da página invalidará seu formulário.';
+            e.preventDefault();
+            e.returnValue = message;
+            return message;
+        }
+    });
+
+    // Detect page focus/blur (clicking outside)
+    window.addEventListener('blur', function() {
+        if (testInProgress) {
+            logSuspiciousActivity('Foco perdido - clicou fora da página', 'focus_lost');
+            showAntiCheatWarning('Não clique fora da página durante o teste!');
+        }
+    });
+
+    // Detect fullscreen changes
+    document.addEventListener('fullscreenchange', function() {
+        if (testInProgress && fullscreenLockActive) {
+            if (!document.fullscreenElement) {
+                logSuspiciousActivity('Saiu do modo fullscreen', 'fullscreen_exit');
+                forceFullscreen();
+                showAntiCheatWarning('Modo fullscreen é obrigatório durante o teste!');
+            }
+        }
+    });
+
+    // Detect ESC key (commonly used to exit fullscreen)
+    document.addEventListener('keydown', function(e) {
+        if (testInProgress && e.key === 'Escape') {
+            e.preventDefault();
+            logSuspiciousActivity('Tentativa de pressionar ESC', 'escape_key');
+            showAntiCheatWarning('Tecla ESC é bloqueada durante o teste!');
+            return false;
+        }
+        
+        // Block Alt+Tab
+        if (testInProgress && e.altKey && e.key === 'Tab') {
+            e.preventDefault();
+            logSuspiciousActivity('Tentativa de Alt+Tab', 'alt_tab');
+            showAntiCheatWarning('Alt+Tab é bloqueado durante o teste!');
+            return false;
+        }
+        
+        // Block Windows key
+        if (testInProgress && (e.key === 'Meta' || e.key === 'OS')) {
+            e.preventDefault();
+            logSuspiciousActivity('Tentativa de usar tecla Windows', 'windows_key');
+            showAntiCheatWarning('Tecla Windows é bloqueada durante o teste!');
+            return false;
+        }
+    });
+
+    // Force focus back to page if lost
+    setInterval(function() {
+        if (testInProgress && !document.hasFocus()) {
+            window.focus();
+        }
+    }, 1000);
+}
+
+function forceFullscreen() {
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(err => {
+            console.warn('Erro ao entrar em fullscreen:', err);
+        });
+    } else if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) {
+        document.documentElement.msRequestFullscreen();
+    }
+}
+
+function startTestMode() {
+    testInProgress = true;
+    fullscreenLockActive = true;
+    
+    // Force fullscreen
+    forceFullscreen();
+    
+    // Show test mode warning
+    showTestModeWarning();
+    
+    // Disable context menu more aggressively
+    document.addEventListener('contextmenu', preventDefaultAction, true);
+    document.addEventListener('selectstart', preventDefaultAction, true);
+    document.addEventListener('dragstart', preventDefaultAction, true);
+}
+
+function endTestMode() {
+    testInProgress = false;
+    fullscreenLockActive = false;
+    
+    // Exit fullscreen
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    }
+    
+    // Re-enable normal interactions
+    document.removeEventListener('contextmenu', preventDefaultAction, true);
+    document.removeEventListener('selectstart', preventDefaultAction, true);
+    document.removeEventListener('dragstart', preventDefaultAction, true);
+}
+
+function preventDefaultAction(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+}
+
+function showTestModeWarning() {
+    const warning = document.createElement('div');
+    warning.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: white;
+        padding: 15px;
+        z-index: 10000;
+        font-weight: bold;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        border-bottom: 3px solid #b91c1c;
+    `;
+    warning.innerHTML = `
+        <i class="fas fa-exclamation-triangle" style="margin-right: 10px;"></i>
+        <strong>MODO TESTE ATIVO:</strong> Tela cheia obrigatória • Não saia da página • Todas as ações são monitoradas
+        <i class="fas fa-shield-alt" style="margin-left: 10px;"></i>
+    `;
+    
+    document.body.appendChild(warning);
+    
+    setTimeout(() => {
+        warning.remove();
+    }, 5000);
+}
+
+// Anti-cheat initialization
+function initializeAntiCheat() {
+    // Disable paste events in form fields
+    const formInputs = document.querySelectorAll('.no-paste');
+    formInputs.forEach(input => {
+        input.addEventListener('paste', function(e) {
+            e.preventDefault();
+            pasteAttempts++;
+            logSuspiciousActivity('Tentativa de colar texto', input.name || input.id);
+            showAntiCheatWarning('Colar texto não é permitido durante o teste!');
+            return false;
+        });
+
+        input.addEventListener('copy', function(e) {
+            e.preventDefault();
+            copyAttempts++;
+            logSuspiciousActivity('Tentativa de copiar texto', input.name || input.id);
+            showAntiCheatWarning('Copiar texto não é permitido durante o teste!');
+            return false;
+        });
+
+        input.addEventListener('cut', function(e) {
+            e.preventDefault();
+            logSuspiciousActivity('Tentativa de recortar texto', input.name || input.id);
+            showAntiCheatWarning('Recortar texto não é permitido durante o teste!');
+            return false;
+        });
+    });
+
+    // Disable additional keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // Disable Ctrl+A (select all) outside form fields
+        if (e.ctrlKey && e.key === 'a' && !isFormField(e.target)) {
+            e.preventDefault();
+            logSuspiciousActivity('Tentativa de selecionar tudo', 'keyboard');
+            return false;
+        }
+
+        // Disable F-keys
+        if (e.key.startsWith('F') && e.key.length > 1) {
+            e.preventDefault();
+            logSuspiciousActivity('Tentativa de usar tecla F', e.key);
+            return false;
+        }
+    });
+
+    // Detect tab switching
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden && modal.style.display === 'block') {
+            logSuspiciousActivity('Mudança de aba durante o teste', 'tab_switch');
+            showAntiCheatWarning('Não mude de aba durante o teste!');
+        }
+    });
+}
+
+function isFormField(element) {
+    return element.tagName === 'INPUT' || element.tagName === 'TEXTAREA';
+}
+
+function logSuspiciousActivity(activity, details) {
+    const timestamp = new Date().toISOString();
+    suspiciousActivity.push({
+        timestamp,
+        activity,
+        details,
+        section: currentSection
+    });
+    console.warn(`Atividade suspeita detectada: ${activity} - ${details}`);
+}
+
+function showAntiCheatWarning(message) {
+    // Create warning overlay
+    const warning = document.createElement('div');
+    warning.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: white;
+        padding: 20px 30px;
+        border-radius: 15px;
+        z-index: 9999;
+        font-weight: bold;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        animation: shake 0.5s ease-in-out;
+    `;
+    warning.innerHTML = `
+        <i class="fas fa-exclamation-triangle" style="margin-right: 10px; font-size: 1.2rem;"></i>
+        ${message}
+    `;
+    
+    document.body.appendChild(warning);
+    
+    setTimeout(() => {
+        warning.remove();
+    }, 3000);
+}
 
 // Navigation functionality
 function initializeNavigation() {
@@ -188,11 +445,17 @@ function openModal() {
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
     resetForm();
+    
+    // Start test mode with fullscreen lock
+    startTestMode();
 }
 
 function closeModal() {
     modal.style.display = 'none';
     document.body.style.overflow = 'auto';
+    
+    // End test mode
+    endTestMode();
 }
 
 // Form functionality
@@ -374,8 +637,21 @@ async function handleFormSubmit(e) {
             applicationData[key] = value;
         }
         
+        // Add security data
+        const submissionData = {
+            ...applicationData,
+            security: {
+                pasteAttempts,
+                copyAttempts,
+                suspiciousActivity,
+                completionIntegrity: suspiciousActivity.length === 0 ? 'CLEAN' : 'SUSPICIOUS'
+            }
+        };
+        
+        console.log('Application submitted:', submissionData);
+        
         // Send to Discord webhook
-        await sendToDiscordWebhook(applicationData);
+        await sendToDiscordWebhook(submissionData);
         
         // Show success message
         showSuccessMessage();
@@ -402,6 +678,11 @@ async function sendToDiscordWebhook(data) {
     const webhookUrl = 'https://discord.com/api/webhooks/1406684833253691534/G46StuWH5Ut6c-z4RKebJ-QWgOEbrdG22rhPbsUG5kEIbltslroFFb2IkcMCzpKi0fBI';
     
     const currentDate = new Date().toLocaleString('pt-BR');
+    
+    // Create security status
+    const securityStatus = data.security.completionIntegrity === 'CLEAN' ? 
+        '✅ Limpo' : 
+        `⚠️ Suspeito (${data.security.pasteAttempts + data.security.copyAttempts} tentativas)`;
     
     const embed = {
         title: "🚔 Nova Inscrição T.R.D - Training Recruit Division",
@@ -462,12 +743,28 @@ async function sendToDiscordWebhook(data) {
                 inline: true
             },
             {
+                name: "🛡️ Status de Segurança",
+                value: securityStatus,
+                inline: true
+            },
+            {
                 name: "🌟 Status",
                 value: "✅ Aguardando Análise",
                 inline: true
             }
         ]
     };
+    
+    // Add suspicious activity details if any
+    if (data.security.suspiciousActivity.length > 0) {
+        embed.fields.push({
+            name: "⚠️ Atividades Suspeitas Detectadas",
+            value: data.security.suspiciousActivity.slice(0, 3).map(activity => 
+                `• ${activity.activity} (Seção ${activity.section})`
+            ).join('\n') + (data.security.suspiciousActivity.length > 3 ? '\n• ...' : ''),
+            inline: false
+        });
+    }
     
     const payload = {
         username: "T.R.D Recruitment System",
@@ -557,6 +854,15 @@ function resetForm() {
     // Reset submit button
     submitBtn.innerHTML = 'Enviar Formulário';
     submitBtn.disabled = false;
+    
+    // Reset anti-cheat counters
+    pasteAttempts = 0;
+    copyAttempts = 0;
+    suspiciousActivity = [];
+    
+    // Reset test mode variables
+    testInProgress = false;
+    fullscreenLockActive = false;
     
     // Reset modal content if it was changed
     if (document.querySelector('.success-message')) {
@@ -666,3 +972,4 @@ function preloadImages() {
 preloadImages();
 
 console.log('T.R.D - Training Recruit Division website loaded successfully!');
+console.warn('Sistema anti-cola ativo. Tentativas de trapacear serão registradas e reportadas.');

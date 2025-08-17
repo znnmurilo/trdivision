@@ -7,6 +7,40 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Anti-copy/paste script -->
+    <script>
+        // Disable right-click context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Disable F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S, Ctrl+A, Ctrl+C, Ctrl+V
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || 
+                (e.ctrlKey && (e.key === 'U' || e.key === 'S' || e.key === 'A' || 
+                              e.key === 'C' || e.key === 'V' || e.key === 'X' ||
+                              e.shiftKey && e.key === 'I'))) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        // Disable text selection
+        document.addEventListener('selectstart', function(e) {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        // Disable drag
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+    </script>
 </head>
 <body>
     <!-- Navigation Header -->
@@ -392,12 +426,12 @@
                     <h3>Informações Pessoais</h3>
                     <div class="form-group">
                         <label for="qra">Qual o seu QRA? *</label>
-                        <input type="text" id="qra" name="qra" placeholder="ex: Cleber Labubu" required>
+                        <input type="text" id="qra" name="qra" placeholder="ex: Cleber Labubu" required class="no-paste">
                     </div>
                     
                     <div class="form-group">
                         <label for="availability">Qual a sua disponibilidade de horário? *</label>
-                        <input type="text" id="availability" name="availability" placeholder="ex: À tarde e à noite" required>
+                        <input type="text" id="availability" name="availability" placeholder="ex: À tarde e à noite" required class="no-paste">
                     </div>
                 </div>
 
@@ -405,7 +439,7 @@
                     <h3>Comunicação por Rádio</h3>
                     <div class="form-group">
                         <label for="radio_priority">Durante uma modulação no rádio, se outro oficial comunicar "Prioridade" ou "QRX", qual deve ser a sua ação imediata? *</label>
-                        <textarea id="radio_priority" name="radio_priority" placeholder="ex: Ficar em X na rádio, e aguardar o informe!" required></textarea>
+                        <textarea id="radio_priority" name="radio_priority" placeholder="ex: Ficar em X na rádio, e aguardar o informe!" required class="no-paste"></textarea>
                     </div>
                 </div>
 
@@ -413,7 +447,7 @@
                     <h3>Procedimentos de Abordagem Veicular</h3>
                     <div class="form-group">
                         <label for="p2_function">Na abordagem veicular padrão (Código 1), qual é a principal função do policial na posição P2? *</label>
-                        <textarea id="p2_function" name="p2_function" required></textarea>
+                        <textarea id="p2_function" name="p2_function" required class="no-paste"></textarea>
                     </div>
                 </div>
 
@@ -421,12 +455,12 @@
                     <h3>Procedimentos de Prisão</h3>
                     <div class="form-group">
                         <label for="photo_items">Ao tirar a foto de um indivíduo para o registro da prisão, quais itens devem ser obrigatoriamente retirados? *</label>
-                        <textarea id="photo_items" name="photo_items" required></textarea>
+                        <textarea id="photo_items" name="photo_items" required class="no-paste"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="max_sentence">Qual é a pena máxima de prisão (em meses) que um oficial pode aplicar sem a necessidade de uma permissão superior? *</label>
-                        <input type="number" id="max_sentence" name="max_sentence" required>
+                        <input type="number" id="max_sentence" name="max_sentence" required class="no-paste">
                     </div>
                 </div>
 
@@ -434,12 +468,12 @@
                     <h3>Procedimentos e Protocolos</h3>
                     <div class="form-group">
                         <label for="qru_procedure">De acordo com o manual, após a finalização de qualquer QRU, qual é o procedimento obrigatório em relação ao veículo do cidadão envolvido? *</label>
-                        <textarea id="qru_procedure" name="qru_procedure" required></textarea>
+                        <textarea id="qru_procedure" name="qru_procedure" required class="no-paste"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="positive_test">Como você agiria caso um conscrito teste positivo no detector de pólvora e entorpecentes? *</label>
-                        <textarea id="positive_test" name="positive_test" required></textarea>
+                        <textarea id="positive_test" name="positive_test" required class="no-paste"></textarea>
                     </div>
                 </div>
 
@@ -447,12 +481,12 @@
                     <h3>Protocolos de Comunicação</h3>
                     <div class="form-group">
                         <label for="cp_usage">O Chat Policial (/cp) deve ser utilizado para qual tipo de comunicação? *</label>
-                        <textarea id="cp_usage" name="cp_usage" required></textarea>
+                        <textarea id="cp_usage" name="cp_usage" required class="no-paste"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="qtx_format">Qual é o formato correto para anunciar no /cp que você está saindo para uma pausa rápida (breve QTX)? *</label>
-                        <input type="text" id="qtx_format" name="qtx_format" required>
+                        <input type="text" id="qtx_format" name="qtx_format" required class="no-paste">
                     </div>
                 </div>
 
@@ -460,12 +494,12 @@
                     <h3>Procedimentos Legais</h3>
                     <div class="form-group">
                         <label for="routine_search">Em uma abordagem de trânsito de rotina (Código 1), sem que haja fundada suspeita ou flagrante, o policial tem legalidade para realizar uma revista veicular? *</label>
-                        <textarea id="routine_search" name="routine_search" required></textarea>
+                        <textarea id="routine_search" name="routine_search" required class="no-paste"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="no_passport">Qual o procedimento correto ao encontrar um indivíduo em Detroit sem passaporte ou com o documento vencido? *</label>
-                        <textarea id="no_passport" name="no_passport" required></textarea>
+                        <textarea id="no_passport" name="no_passport" required class="no-paste"></textarea>
                     </div>
                 </div>
 
@@ -473,17 +507,17 @@
                     <h3>Sugestões de Melhoria</h3>
                     <div class="form-group">
                         <label for="change_recruitment">Atualmente o que você mudaria no processo de recrutamento? *</label>
-                        <textarea id="change_recruitment" name="change_recruitment" required></textarea>
+                        <textarea id="change_recruitment" name="change_recruitment" required class="no-paste"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="improve_courses">Na sua opinião como os cursos básicos atuais poderiam ser mais aproveitados, para que sejam mais assertivos para os recrutas? *</label>
-                        <textarea id="improve_courses" name="improve_courses" required></textarea>
+                        <textarea id="improve_courses" name="improve_courses" required class="no-paste"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="perfect_recruitment">Na sua opinião como seria o processo de um recrutamento perfeito? *</label>
-                        <textarea id="perfect_recruitment" name="perfect_recruitment" required></textarea>
+                        <textarea id="perfect_recruitment" name="perfect_recruitment" required class="no-paste"></textarea>
                     </div>
                 </div>
 
